@@ -16,7 +16,7 @@ const characters = [
   {
     name: "Dee",
     job: "Aspring actress",
-  },
+  }, 
   {
     name: "Dennis",
     job: "Bartender",
@@ -30,13 +30,21 @@ function MyApp() {
     const updated = characters.filter((character, i) => {
       return i !== index;
     });
+
     setCharacters(updated);
-  }
+
 }
-  return (
+
+function updateList(person) {
+  setCharacters([...characters, person]);
+}
+
+ return (
   <div className="container">
     <Table characterData={characters} removeCharacter={removeOneCharacter} />
+    <Form handleSubmit={updateList} />
   </div>
 );
+}
 
 export default MyApp;
