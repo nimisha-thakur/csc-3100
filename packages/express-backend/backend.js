@@ -8,28 +8,28 @@ const users = {
   users_list: [
     {
       id: "xyz789",
-      name: "Charlie",
-      job: "Janitor",
+      name: "Nimisha",
+      job: "Software Engineer",
     },
     {
       id: "abc123",
-      name: "Mac",
-      job: "Bouncer",
+      name: "Nicole",
+      job: "Electrical Engineer",
     },
     {
       id: "ppp222",
-      name: "Mac",
-      job: "Professor",
+      name: "Maiya",
+      job: "Influencer",
     },
     {
       id: "yat999",
-      name: "Dee",
-      job: "Aspring actress",
+      name: "Nimisha",
+      job: "Software Engineer",
     },
     {
       id: "zap555",
-      name: "Dennis",
-      job: "Bartender",
+      name: "Jared",
+      job: "Industrial Engineer",
     },
   ],
 };
@@ -52,6 +52,22 @@ const addUser = (user) => {
   return user;
 };
 
+const deleteUserById = (id) => {
+    const index = users["users_list"].findIndex(
+        (user) => user["id"] === id
+    );
+
+    if (index !== -1) {
+        users["users_list"].splice(index, 1);
+    }
+};
+
+const findUserByNameAndJob = (name, job) => {
+  return users["users_list"].filter(
+    (user) => user["name"] === name && user["job"] === job
+  );
+};
+
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
   addUser(userToAdd);
@@ -70,14 +86,30 @@ app.get("/users/:id", (req, res) => {
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
-  if (name != undefined) {
+  const job = req.query.job;
+
+  if (name != undefined && job != undefined) {
+    let result = findUserByNameAndJob(name, job);
+    result = { users_list: result };
+    res.send(result);
+
+  } else if (name != undefined) {
     let result = findUserByName(name);
     result = { users_list: result };
     res.send(result);
+
   } else {
     res.send(users);
   }
 });
+
+app.delete("/users/:id", (req, res) => {
+  const id = req.params["id"];
+  deleteUserById(id);
+  res.send();
+
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
