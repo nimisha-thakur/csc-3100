@@ -4,25 +4,6 @@ import React, { useState, useEffect } from "react";
 import Form from "./Form";
 import Table from "./Table";
 
-const characters = [
-  {
-    name: "Charlie",
-    job: "Janitor",
-  },
-  {
-    name: "Mac",
-    job: "Bouncer",
-  },
-  {
-    name: "Dee",
-    job: "Aspring actress",
-  }, 
-  {
-    name: "Dennis",
-    job: "Bartender",
-  },
-];
-
 function MyApp() {
   const [characters, setCharacters] = useState([]);
 
