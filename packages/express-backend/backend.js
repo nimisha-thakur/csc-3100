@@ -50,6 +50,7 @@ const findUserById = (id) =>
   users["users_list"].find((user) => user["id"] === id);
 
 const addUser = (user) => {
+  user.id = Math.random().toString(36).substring(2, 8);
   users["users_list"].push(user);
   return user;
 };
