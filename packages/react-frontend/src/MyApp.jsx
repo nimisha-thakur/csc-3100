@@ -53,12 +53,24 @@ function MyApp() {
 }, []);
 
 function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
+  const user = characters[index];
+  const id = user.id;
+
+  fetch(`http://localhost:8000/users/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.status === 204) {
+        const updated = characters.filter((character, i) => {
+          return i !== index;
+        });
+
+        setCharacters(updated);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
-
-    setCharacters(updated);
-
 }
 
 function updateList(person) {

@@ -108,11 +108,15 @@ app.get("/users", (req, res) => {
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"];
-  deleteUserById(id);
-  res.send();
+  const user = findUserById(id);
 
+  if (user === undefined) {
+    res.status(404).send("resource not found");
+  } else {
+    deleteUserById(id);
+    res.status(204).send();
+  }
 });
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
